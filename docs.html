@@ -17,6 +17,10 @@
             color: #ffffff;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             line-height: 1.6;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .docs-container {
@@ -488,6 +492,73 @@
     </div>
 
     <script>
+        // ========== DISABLE RIGHT-CLICK ==========
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // ========== DISABLE KEYBOARD SHORTCUTS ==========
+        document.addEventListener('keydown', function(e) {
+            // Disable Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+A, Ctrl+S, Ctrl+P
+            if ((e.ctrlKey || e.metaKey) && 
+                (e.key === 'c' || e.key === 'x' || e.key === 'v' || 
+                 e.key === 'a' || e.key === 's' || e.key === 'p' ||
+                 e.key === 'u' || e.key === 'i')) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable F12 (DevTools)
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+Shift+I (DevTools)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+Shift+J (Console)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'J') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+Shift+C (Inspector)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Disable Ctrl+U (View Source)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // ========== DISABLE DRAG AND DROP ==========
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // ========== DISABLE TEXT SELECTION ==========
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // ========== DISABLE COPY ==========
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // ========== SIDEBAR NAVIGATION ==========
         document.querySelectorAll('.sidebar-nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 if (this.getAttribute('href').startsWith('#')) {
@@ -503,6 +574,7 @@
             });
         });
 
+        // ========== UPDATE ACTIVE NAV ON SCROLL ==========
         window.addEventListener('scroll', () => {
             let current = '';
             const sections = document.querySelectorAll('h1, h2');
@@ -524,6 +596,10 @@
                 }
             });
         });
+        
+        // ========== CONSOLE WARNING ==========
+        console.log('%c🔒 CipherBridge Documentation — Content Protection Active', 'color: #38bdf8; font-size: 12px;');
+        console.log('%cCopying, right-click, and developer tools are disabled.', 'color: #9ca3af; font-size: 10px;');
     </script>
 </body>
 </html>
